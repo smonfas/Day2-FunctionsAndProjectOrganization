@@ -126,7 +126,7 @@ filtered
 # %% Make PSTHs
 # Exercise: Make a `compute_psths(data, time_bins)` function here, returning the `psth` variable.
 
-def comput_psths(bin_interval, time_bins, filtered):
+def compute_psths(bin_interval, time_bins, filtered):
     psth = (
     filtered
     .groupby([time_bins, 'trial_id', 'contrast_left', 'cell_id', 'brain_area'], observed=True, )
@@ -148,15 +148,21 @@ def comput_psths(bin_interval, time_bins, filtered):
     psth
     return psth
 
-psth = comput_psths(bin_interval, time_bins, filtered)
+psth = compute_psths(bin_interval, time_bins, filtered)
 psth
 
 
 # %% Plot PSTHs
 # Make a `plot_psths(psth)` function here, returning the `g` variable.
 import seaborn as sns
-g = sns.FacetGrid(data=psth, col='brain_area', col_wrap=2)
-g.map_dataframe(sns.lineplot, x='time', y='avg_spike_count', hue='contrast_left')
-g.add_legend()
+
+def plot_psths(psth):
+    g = sns.FacetGrid(data=psth, col='brain_area', col_wrap=2)
+    g.map_dataframe(sns.lineplot, x='time', y='avg_spike_count', hue='contrast_left')
+    g.add_legend()
+
+g = plot_psths(psth=psth)
 g.savefig('PSTHs.png')
 
+
+# %%
