@@ -12,3 +12,6 @@ venv
 
 # Results
 PSTHs.png
+
+# python build files
+*.pyc
