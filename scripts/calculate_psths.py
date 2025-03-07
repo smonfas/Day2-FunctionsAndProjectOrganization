@@ -1,7 +1,7 @@
 import utils
 
 url = 'https://uni-bonn.sciebo.de/s/oTfGigwXQ4g0raW'
-filename = 'data.nc'
+filename = 'data/data.nc'
 
 
 utils.download_data(url=url, filename=filename)
@@ -29,5 +29,5 @@ psth = utils.compute_psths(bin_interval, time_bins, filtered)
 psth
 
 g = utils.plot_psths(psth=psth)
-g.savefig('PSTHs.png')
+g.savefig('results/PSTHs.png')
 
