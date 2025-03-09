@@ -1,6 +1,7 @@
 import xarray as xr
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 def download_data(url, filename):
     from pathlib import Path
@@ -60,7 +61,7 @@ def merge_data(trials, cells, spikes):
     return merged
 
 
-def compute_time_bins(time, bin_interval):
+def compute_time_bins(time,bin_interval=0.05):
     #time = merged['time']
     time = np.round(time, decimals=6)  # Round time to the nearest microsecond, to reduce floating point errors.
     
@@ -68,7 +69,7 @@ def compute_time_bins(time, bin_interval):
     return time_bins
 
 
-def compute_psths(data,time_bins):
+def compute_psths(data, time_bins, bin_interval):
     psth = (
         data
         .groupby([time_bins, 'trial_id', 'contrast_left', 'cell_id', 'brain_area'], observed=True, )

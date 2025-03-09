@@ -1,14 +1,17 @@
 
 # %% Script Parameters
 import utils
-
-
+import xarray as xr
+import pandas as pd
+import numpy as np
+import seaborn as sns
 url = 'https://uni-bonn.sciebo.de/s/oTfGigwXQ4g0raW'
 filename = 'data.nc'
+from utils import compute_psths
 
 
 
-import xarray as xr
+
 
 #from netCDF4 import Dataset
 # %% Download Data
@@ -35,7 +38,7 @@ print(type(dset))
 # %% Extract Experiment-Level Data
 # Exercise: Make an `extract_trials(filename)` function, returning the `trials` variable.
 
-import xarray as xr
+
 
 
 
@@ -44,7 +47,7 @@ trials = utils.extract_trials(dset)
 # %% Extract Spike-Time Data
 # Exercise: Make an `extract_spikes(filename)` function, returning the `spikes` variable.
 
-import xarray as xr
+
 
 
 spikes = utils.extract_spikes(dset)
@@ -53,7 +56,6 @@ spikes = utils.extract_spikes(dset)
 # %% Extract Cell-Level Data
 # Exercise: Make an `extract_cells(filename)` function, returning the `cells` variable.
 
-import xarray as xr
 
 
 cells = utils.extract_cells(dset)
@@ -61,7 +63,7 @@ cells = utils.extract_cells(dset)
 # %% Merge and Compress Extracted Data
 # Exercise: Make a `merge_data(trials, cells, spikes)` function, returning the `merged` variable.
 
-import pandas as pd
+
 
 
 
@@ -73,8 +75,8 @@ merged= utils.merge_data(trials, cells, spikes)
 # %% Calculate Time Bins for PSTH
 # Exercise: Make a `compute_time_bins(time, bin_interval)` function, returning the `time_bins` variable.
 
-import numpy as np
-bin_interval=0.05
+
+
 time_bins = utils.compute_time_bins(merged['time'], bin_interval=0.05)
 
 # %% filter out stimuli with contrast on the right.
@@ -87,13 +89,15 @@ filtered
 # %% Make PSTHs
 # Exercise: Make a `compute_psths(data, time_bins)` function here, returning the `psth` variable.
 #data=filtered
-psth = utils.compute_psths(filtered, time_bins)
+import inspect
+print(inspect.signature(compute_psths))
+psth = utils.compute_psths(filtered, time_bins, 0.05)
 # %% Plot PSTHs
 # Make a `plot_psths(psth)` function here, returning the `g` variable.
 
 
 
-import seaborn as sns
+
 
 
 utils.plot_psths(psth)
