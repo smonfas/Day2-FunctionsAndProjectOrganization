@@ -1,14 +1,13 @@
 
 # %% Script Parameters
-import utils
 import xarray as xr
 import pandas as pd
 import numpy as np
 import seaborn as sns
 url = 'https://uni-bonn.sciebo.de/s/oTfGigwXQ4g0raW'
 filename = 'data.nc'
-from utils import compute_psths
 
+from psth import utils
 
 
 
@@ -90,7 +89,7 @@ filtered
 # Exercise: Make a `compute_psths(data, time_bins)` function here, returning the `psth` variable.
 #data=filtered
 import inspect
-print(inspect.signature(compute_psths))
+
 psth = utils.compute_psths(filtered, time_bins, 0.05)
 # %% Plot PSTHs
 # Make a `plot_psths(psth)` function here, returning the `g` variable.
